@@ -5,4 +5,4 @@
 - <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=React&logoColor=white"/>
 - <img alt="React Router" src ="https://img.shields.io/badge/ReactRouter-CA4245.svg?&style=for-the-badge&logo=ReactRouter&logoColor=white"/>
 - <img alt="React Query" src ="https://img.shields.io/badge/React Query-FF4154.svg?&style=for-the-badge&logo=React Query&logoColor=white"/>
-- <img alt="styled-components" src ="https://img.shields.io/badge/styled-components-DB7093.svg?&style=for-the-badge&logo=styled-components&logoColor=white"/>
+- <img alt="styled-components" src ="https://img.shields.io/badge/styledComponents-DB7093.svg?&style=for-the-badge&logo=styled-components&logoColor=white"/>
