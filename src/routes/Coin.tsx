@@ -1,6 +1,6 @@
 import { info } from 'console';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getCoinInfo } from '../api/getCoinInfo';
 import { InfoData, PriceData } from '../interface/interfaces';
@@ -110,7 +110,13 @@ const Coin = () => {
               <span>{coinPrice?.max_supply}</span>
             </OverviewItem>
           </Overview>
-          
+          <Link to='chart'>
+            Chart
+          </Link>
+          <Link to='price'>
+            Price
+          </Link>
+          <Outlet/>
         </>
       )}
     </Container>
