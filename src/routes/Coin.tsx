@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getCoinInfo } from '../api/getCoinInfo';
+import { InfoData, PriceData } from '../interface/interfaces';
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -32,17 +33,24 @@ interface RouterState {
 
 const Coin = () => {
   const { coinId } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [coinInfo, setCoinInfo] = useState({});
-  const [coinPrice, setCoinPrice] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [coinInfo, setCoinInfo] = useState<InfoData>();
+  const [coinPrice, setCoinPrice] = useState<PriceData>();
   const location = useLocation();
   const name = location.state ? (location.state as RouterState).name : 'Loading';
 
   useEffect(() => {
+    setLoading(true);
     (async() => {
-      const {coinInfo, priceData} = await getCoinInfo(coinId!);
-      setCoinInfo(coinInfo);
-      setCoinPrice(priceData);
+      try {
+        const {coinInfo, priceData} = await getCoinInfo(coinId!);
+        setCoinInfo(coinInfo);
+        setCoinPrice(priceData);
+      } catch(e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
     })();
   },[coinId])
   return (

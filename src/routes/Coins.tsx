@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getCoins } from '../api/getCoins';
+import { CoinInterface } from '../interface/interfaces';
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -52,16 +53,6 @@ const Img = styled.img`
   height: 25px;
   margin-right: 10px;
 `;
-
-interface CoinInterface {
-  id:        string;
-  name:      string;
-  symbol:    string;
-  rank:      number;
-  is_new:    boolean;
-  is_active: boolean;
-  type:      string;
-}
 
 const Coins = () => {
   const [coins, setCoins] = useState<CoinInterface[]>([]);
