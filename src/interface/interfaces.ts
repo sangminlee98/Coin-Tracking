@@ -62,6 +62,3 @@ export interface PriceData {
   first_data_at: string;
   last_updated: string;
 }
-
-
-
