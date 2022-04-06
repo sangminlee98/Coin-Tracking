@@ -5,12 +5,12 @@ import { getCoins } from '../api/getCoins';
 
 const Container = styled.div`
   padding: 0px 20px;
-  max-width: 480px;
+  max-width: 600px;
   margin: 0 auto;
 `;
 
 const Header = styled.header`
-  height: 10vh;
+  height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,8 @@ const Coin = styled.li`
   border-radius: 15px;
   margin-bottom: 10px;
   a {
-    display: block;
+    display: flex;
+    align-items: center;
     padding: 20px;
     transition: color .2s ease-in;
   }
@@ -44,6 +45,12 @@ const Coin = styled.li`
 const Title = styled.h1`
   font-size: 48px;
   color: ${props => props.theme.accentColor};
+`;
+
+const Img = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
 `;
 
 interface CoinInterface {
@@ -65,7 +72,7 @@ const Coins = () => {
       setLoading(true);
       try {
         const coins = await getCoins();
-        setCoins(coins);
+        setCoins(coins.splice(0,100));
       } catch(e) {
         console.log(e);
       } finally {
@@ -81,7 +88,10 @@ const Coins = () => {
       {loading ? <Loader>Loading...</Loader> : <CoinsList>
         {coins.map((coin) =>
           <Coin key={coin.id}>
-            <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+            <Link to={`/${coin.id}`} state={{name: coin.name}}>
+                <Img src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`} alt='coinImg'/>
+                {coin.name} &rarr;
+            </Link>
           </Coin>)}
       </CoinsList>}
     </Container>
