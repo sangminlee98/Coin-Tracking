@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getCoins } from '../api/getCoins';
@@ -55,29 +56,14 @@ const Img = styled.img`
 `;
 
 const Coins = () => {
-  const [coins, setCoins] = useState<CoinInterface[]>([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    (async() => {
-      setLoading(true);
-      try {
-        const coins = await getCoins();
-        setCoins(coins.splice(0,100));
-      } catch(e) {
-        console.log(e);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  },[]);
+  const {isLoading, data} = useQuery<CoinInterface[]>("allCoins", getCoins)
   return (
     <Container>
       <Header>
         <Title>코인</Title>
       </Header>
-      {loading ? <Loader>Loading...</Loader> : <CoinsList>
-        {coins.map((coin) =>
+      {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
+        {data?.slice(0,100).map((coin) =>
           <Coin key={coin.id}>
             <Link to={`/${coin.id}`} state={{name: coin.name}}>
                 <Img src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`} alt='coinImg'/>
