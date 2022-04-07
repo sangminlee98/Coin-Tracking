@@ -33,7 +33,7 @@ const Chart = () => {
                   height: 300,
                   width: 500,
                   toolbar: {
-                    show: true,
+                    show: false,
                   },
                   background: 'transparent',
                 },

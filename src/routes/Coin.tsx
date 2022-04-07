@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import {Helmet, HelmetProvider} from 'react-helmet-async';
+import {AiOutlineHome} from 'react-icons/ai'
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getCoinInfo, getCoinPrice } from '../api/getCoinData';
@@ -13,6 +14,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,6 +28,20 @@ const Loader = styled.div`
 const Title = styled.h1`
   font-size: 48px;
   color: ${props => props.theme.accentColor};
+`;
+const HomeBtn = styled.div`
+  position: absolute;
+  left: 20px;
+  transition: all 0.3s ease-in;
+  svg {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    color: ${props => props.theme.accentColor}
+  }
+  &:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
 `;
 const Overview = styled.div`
   display: flex;
@@ -94,6 +110,9 @@ const Coin = () => {
         </Helmet>
       </HelmetProvider>
       <Header>
+        <HomeBtn>
+          <Link to='/'><AiOutlineHome/></Link>
+        </HomeBtn>
         <Title>
           {state?.name ? state.name : loading ? 'Loading' : infoData?.name}
         </Title>
