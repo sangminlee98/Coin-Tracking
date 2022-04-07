@@ -62,3 +62,14 @@ export interface PriceData {
   first_data_at: string;
   last_updated: string;
 }
+
+export interface ChartData {
+  time_open: string;
+  time_close: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+  market_cap: number;
+}
