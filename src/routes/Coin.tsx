@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import {Helmet, HelmetProvider} from 'react-helmet-async';
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getCoinInfo, getCoinPice } from '../api/getCoinData';
+import { getCoinInfo, getCoinPrice } from '../api/getCoinData';
 import { InfoData, PriceData } from '../interface/interfaces';
 
 const Container = styled.div`
@@ -77,7 +77,7 @@ interface RouterState {
 const Coin = () => {
   const { coinId } = useParams();
   const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(['info', coinId], () => getCoinInfo(coinId!));
-  const {isLoading: priceLoading, data: priceData} = useQuery<PriceData>(['price', coinId], () => getCoinPice(coinId!),{refetchInterval: 5000,});
+  const {isLoading: priceLoading, data: priceData} = useQuery<PriceData>(['price', coinId], () => getCoinPrice(coinId!),{refetchInterval: 5000,});
   // 리액트 쿼리에서 3번째 인자에 refetchInterval을 통해 5초주기마다 다시 데이터를 fetch해옴
   const location = useLocation();
   const state = location.state as RouterState;
