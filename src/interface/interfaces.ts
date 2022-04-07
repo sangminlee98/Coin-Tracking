@@ -27,6 +27,19 @@ export interface InfoData {
   hash_algorithm: string;
   first_data_at: string;
   last_data_at: string;
+}
+
+export interface PriceData {
+  id: string;
+  name: string;
+  symbol: string;
+  rank: number;
+  circulating_supply: number;
+  total_supply: number;
+  max_supply: number;
+  beta_value: number;
+  first_data_at: string;
+  last_updated: string;
   quotes: {
     USD: {
       ath_date: string;
@@ -48,19 +61,6 @@ export interface InfoData {
       volume_24h_change_24h: number;
     }
   }
-}
-
-export interface PriceData {
-  id: string;
-  name: string;
-  symbol: string;
-  rank: number;
-  circulating_supply: number;
-  total_supply: number;
-  max_supply: number;
-  beta_value: number;
-  first_data_at: string;
-  last_updated: string;
 }
 
 export interface ChartData {

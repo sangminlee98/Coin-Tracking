@@ -10,7 +10,8 @@ interface IOutletContext {
 }
 const Chart = () => {
   const {coinId} = useOutletContext<IOutletContext>();
-  const {isLoading, data} = useQuery<ChartData[]>(['chart',coinId], () => getCoinChart(coinId));
+  const {isLoading, data} = useQuery<ChartData[]>(['chart',coinId], () => getCoinChart(coinId),{refetchInterval: 5000,});
+  // 5초 주기로 데이터를 다시 fetch해옴
   return (
     <div>
       {isLoading ? (

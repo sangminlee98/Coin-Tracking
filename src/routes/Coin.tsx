@@ -76,8 +76,8 @@ interface RouterState {
 const Coin = () => {
   const { coinId } = useParams();
   const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(['info', coinId], () => getCoinInfo(coinId!));
-  const {isLoading: priceLoading, data: priceData} = useQuery<PriceData>(['price', coinId], () => getCoinPice(coinId!));
-  
+  const {isLoading: priceLoading, data: priceData} = useQuery<PriceData>(['price', coinId], () => getCoinPice(coinId!),{refetchInterval: 5000,});
+  // 리액트 쿼리에서 3번째 인자에 refetchInterval을 통해 5초주기마다 다시 데이터를 fetch해옴
   const location = useLocation();
   const state = location.state as RouterState;
   const priceMatch = useMatch('/:coinId/price');
@@ -104,8 +104,8 @@ const Coin = () => {
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+              <span>Price:</span>
+              <span>{priceData?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
