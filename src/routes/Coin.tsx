@@ -127,7 +127,7 @@ const Coin = () => {
               <Link to='price'>Price</Link>
             </Tab>
           </Tabs>
-          <Outlet/>
+          <Outlet context={{coinId}}/>
         </>
       )}
     </Container>
