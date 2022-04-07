@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -59,8 +60,15 @@ const Coins = () => {
   const {isLoading, data} = useQuery<CoinInterface[]>("allCoins", getCoins)
   return (
     <Container>
+      <HelmetProvider>
+        <Helmet>
+          <title>
+            Coin Tracker
+          </title>
+        </Helmet>
+      </HelmetProvider>
       <Header>
-        <Title>코인</Title>
+        <Title>Coin Tracker</Title>
       </Header>
       {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
         {data?.slice(0,100).map((coin) =>

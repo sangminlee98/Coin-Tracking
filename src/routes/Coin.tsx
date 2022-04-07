@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import {Helmet, HelmetProvider} from 'react-helmet-async';
 import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getCoinInfo, getCoinPice } from '../api/getCoinData';
@@ -85,6 +86,13 @@ const Coin = () => {
   const loading = infoLoading || priceLoading;
   return (
     <Container>
+      <HelmetProvider>
+        <Helmet>
+          <title>
+            {state?.name ? state.name : loading ? 'Loading' : infoData?.name}
+          </title>
+        </Helmet>
+      </HelmetProvider>
       <Header>
         <Title>
           {state?.name ? state.name : loading ? 'Loading' : infoData?.name}
