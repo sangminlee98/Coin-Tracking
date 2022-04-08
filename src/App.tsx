@@ -62,7 +62,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 function App() {
-  const [isDark, setIsDart] = useState(false);
+  const [isDark, setIsDart] = useState(true);
   const toggleDark = () => setIsDart((current )=> !current);
   return (
     <> 

@@ -11,7 +11,7 @@ interface IRouterProps {
 }
 const Router = ({toggleDark, isDark}: IRouterProps) => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path='/' element={<Coins isDark={isDark} toggleDark={toggleDark}/>}/>
         <Route path='/:coinId' element={<Coin isDark={isDark} toggleDark={toggleDark}/>}>

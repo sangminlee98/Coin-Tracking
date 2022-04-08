@@ -2,6 +2,7 @@
   "name": "coin-tracker",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sangminlee98.github.io/Coin-Tracking",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -13,6 +14,7 @@
     "@types/react-helmet": "^6.1.5",
     "@types/styled-components": "^5.1.24",
     "apexcharts": "^3.35.0",
+    "gh-pages": "^3.2.3",
     "react": "^18.0.0",
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.0.0",
@@ -30,7 +32,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "yarn build"
   },
   "eslintConfig": {
     "extends": [
