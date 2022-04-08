@@ -13,12 +13,27 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
+  position: relative;
   height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
+const ToggleBtn = styled.button`
+  position: absolute;
+  right: 20px;
+  margin-top: 15px;
+  font-size: 1.5em;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: .3s ease-in;
+  &:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+`;
 const Loader = styled.div`
   text-align: center;
 `;
@@ -27,9 +42,9 @@ const CoinsList = styled.ul`
 
 `;
 
-const Coin = styled.li`
+const Coin = styled.li<{isDarkMode: boolean}>`
   background-color: white;
-  color: ${props => props.theme.bgColor};
+  color: ${props => props.isDarkMode ? props.theme.bgColor : 'black'};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
@@ -55,9 +70,12 @@ const Img = styled.img`
   height: 25px;
   margin-right: 10px;
 `;
-
-const Coins = () => {
-  const {isLoading, data} = useQuery<CoinInterface[]>("allCoins", getCoins)
+interface ICoinsProps {
+  isDark: boolean;
+  toggleDark: () => void;
+}
+const Coins = ({isDark, toggleDark}: ICoinsProps) => {
+  const {isLoading, data} = useQuery<CoinInterface[]>("allCoins", getCoins);
   return (
     <Container>
       <HelmetProvider>
@@ -69,10 +87,13 @@ const Coins = () => {
       </HelmetProvider>
       <Header>
         <Title>Coin Tracker</Title>
+        <ToggleBtn onClick={toggleDark}>
+          {isDark ? '🌜' : '🌞'}
+        </ToggleBtn>
       </Header>
       {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
         {data?.slice(0,100).map((coin) =>
-          <Coin key={coin.id}>
+          <Coin isDarkMode={isDark} key={coin.id}>
             <Link to={`/${coin.id}`} state={{name: coin.name}}>
                 <Img src={`https://cryptocurrencyliveprices.com/img/${coin.id}.png`} alt='coinImg'/>
                 {coin.name} &rarr;

@@ -1,7 +1,8 @@
-import React from 'react';
-import { createGlobalStyle } from 'styled-components';
+import React, { useState } from 'react';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import {ReactQueryDevtools} from 'react-query/devtools'
 import Router from './Router';
+import { darkTheme, lightTheme } from './theme';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -60,13 +61,16 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
   }
 `;
-
 function App() {
+  const [isDark, setIsDart] = useState(false);
+  const toggleDark = () => setIsDart((current )=> !current);
   return (
     <> 
-      <GlobalStyle/>
-      <Router/>
-      <ReactQueryDevtools initialIsOpen/>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <GlobalStyle/>
+        <Router isDark={isDark} toggleDark={toggleDark}/>
+        <ReactQueryDevtools initialIsOpen/>
+      </ThemeProvider>
     </>
   );
 }

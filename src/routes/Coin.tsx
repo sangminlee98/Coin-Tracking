@@ -32,12 +32,27 @@ const Title = styled.h1`
 const HomeBtn = styled.div`
   position: absolute;
   left: 20px;
-  transition: all 0.3s ease-in;
   svg {
     font-size: 1.5rem;
     margin-top: 15px;
-    color: ${props => props.theme.accentColor}
+    color: ${props => props.theme.accentColor};
+    transition: all 0.3s ease-in;
   }
+  svg:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+`;
+const ToggleBtn = styled.button`
+  position: absolute;
+  right: 20px;
+  margin-top: 15px;
+  font-size: 1.5em;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: .3s ease-in;
   &:hover {
     transform: scale(1.1);
     opacity: 0.8;
@@ -89,8 +104,12 @@ const Tab = styled.span<{isActive: boolean}>`
 interface RouterState {
   name: string;
 }
+interface ICoinProps {
+  isDark: boolean;
+  toggleDark: () => void;
+}
 
-const Coin = () => {
+const Coin = ({isDark, toggleDark}: ICoinProps) => {
   const { coinId } = useParams();
   const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(['info', coinId], () => getCoinInfo(coinId!));
   const {isLoading: priceLoading, data: priceData} = useQuery<PriceData>(['price', coinId], () => getCoinPrice(coinId!),{refetchInterval: 5000,});
@@ -116,6 +135,9 @@ const Coin = () => {
         <Title>
           {state?.name ? state.name : loading ? 'Loading' : infoData?.name}
         </Title>
+        <ToggleBtn onClick={toggleDark}>
+          {isDark ? '🌜' : '🌞'}
+        </ToggleBtn>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
