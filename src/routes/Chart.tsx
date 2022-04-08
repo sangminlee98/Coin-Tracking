@@ -4,14 +4,15 @@ import { useOutletContext } from 'react-router-dom';
 import { getCoinChart } from '../api/getCoinChart';
 import { ChartData } from '../interface/interfaces';
 import ApexChart from 'react-apexcharts';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
 interface IOutletContext {
   coinId: string;
 }
-interface IChartProps {
-  isDark: boolean;
-}
-const Chart = ({isDark}: IChartProps) => {
+
+const Chart = () => {
+  const isDark = useRecoilValue(isDarkAtom);
   const {coinId} = useOutletContext<IOutletContext>();
   const {isLoading, data} = useQuery<ChartData[]>(['chart',coinId], () => getCoinChart(coinId),{refetchInterval: 5000,});
   // 5초 주기로 데이터를 다시 fetch해옴

@@ -2,8 +2,10 @@ import React from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { getCoins } from '../api/getCoins';
+import { isDarkAtom } from '../atoms';
 import { CoinInterface } from '../interface/interfaces';
 
 const Container = styled.div`
@@ -22,7 +24,6 @@ const Header = styled.header`
 const ToggleBtn = styled.button`
   position: absolute;
   right: 20px;
-  margin-top: 15px;
   font-size: 1.5em;
   border: none;
   outline: none;
@@ -70,11 +71,13 @@ const Img = styled.img`
   height: 25px;
   margin-right: 10px;
 `;
-interface ICoinsProps {
-  isDark: boolean;
-  toggleDark: () => void;
-}
-const Coins = ({isDark, toggleDark}: ICoinsProps) => {
+
+const Coins = () => {
+  const setIsDark = useSetRecoilState(isDarkAtom);
+  const toggleDark = () => {
+    setIsDark(state => !state);
+  }
+  const isDark = useRecoilValue(isDarkAtom);
   const {isLoading, data} = useQuery<CoinInterface[]>("allCoins", getCoins);
   return (
     <Container>

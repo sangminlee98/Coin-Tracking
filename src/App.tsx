@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import {ReactQueryDevtools} from 'react-query/devtools'
 import Router from './Router';
 import { darkTheme, lightTheme } from './theme';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from './atoms';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -62,13 +64,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 function App() {
-  const [isDark, setIsDart] = useState(true);
-  const toggleDark = () => setIsDart((current )=> !current);
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <> 
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle/>
-        <Router isDark={isDark} toggleDark={toggleDark}/>
+        <Router/>
         <ReactQueryDevtools initialIsOpen/>
       </ThemeProvider>
     </>

@@ -6,6 +6,8 @@ import { Link, Outlet, useLocation, useMatch, useParams } from 'react-router-dom
 import styled from 'styled-components';
 import { getCoinInfo, getCoinPrice } from '../api/getCoinData';
 import { InfoData, PriceData } from '../interface/interfaces';
+import { isDarkAtom } from '../atoms';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -34,7 +36,6 @@ const HomeBtn = styled.div`
   left: 20px;
   svg {
     font-size: 1.5rem;
-    margin-top: 15px;
     color: ${props => props.theme.accentColor};
     transition: all 0.3s ease-in;
   }
@@ -46,7 +47,6 @@ const HomeBtn = styled.div`
 const ToggleBtn = styled.button`
   position: absolute;
   right: 20px;
-  margin-top: 15px;
   font-size: 1.5em;
   border: none;
   outline: none;
@@ -104,12 +104,13 @@ const Tab = styled.span<{isActive: boolean}>`
 interface RouterState {
   name: string;
 }
-interface ICoinProps {
-  isDark: boolean;
-  toggleDark: () => void;
-}
 
-const Coin = ({isDark, toggleDark}: ICoinProps) => {
+const Coin = () => {
+  const isDark = useRecoilValue(isDarkAtom);
+  const setIsDark = useSetRecoilState(isDarkAtom);
+  const toggleDark = () => {
+    setIsDark(state => !state);
+  }
   const { coinId } = useParams();
   const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(['info', coinId], () => getCoinInfo(coinId!));
   const {isLoading: priceLoading, data: priceData} = useQuery<PriceData>(['price', coinId], () => getCoinPrice(coinId!),{refetchInterval: 5000,});

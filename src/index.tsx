@@ -1,6 +1,7 @@
 import React, { StrictMode } from 'react';
 import {createRoot} from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { RecoilRoot } from 'recoil';
 import App from './App';
 
 
@@ -11,8 +12,10 @@ const queryClient = new QueryClient();
 
 root.render(
   <StrictMode> 
-    <QueryClientProvider client={queryClient}>
-      <App/>
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <App/>
+      </QueryClientProvider>
+    </RecoilRoot>
   </StrictMode>
 )
