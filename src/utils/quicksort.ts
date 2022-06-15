@@ -1,7 +1,7 @@
 import { PriceData } from './../interface/interfaces';
 export const quickSort = function (arr: PriceData[]){
   if (arr.length <= 1) return arr;
-  const pivot = arr[0].quotes.USD.percent_change_1h
+  const pivot = arr[0].quotes.USD.percent_change_1h;
   const pivotObj = arr[0];
   const left = [];
   const right = [];
